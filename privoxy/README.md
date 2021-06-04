@@ -24,3 +24,9 @@ Available Environment Variables
 | `HTTP_PARENT` | `.` | the upstream HTTP proxy |
 | `SOCKS_PROXY` |     | the upstream SOCKS proxy address |
 | `SOCKS_METHOD` |     | the upstream SOCKS proxy method |
+
+Github Repository
+---------------------------------------------
+
+For more details, please check the following github repository:
+[https://github.com/zcchen/dockers][https://github.com/zcchen/dockers]
