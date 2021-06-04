@@ -41,3 +41,14 @@ jobs:
         tags: |
           zcchen/privoxy:latest
           zcchen/privoxy:${{ steps.current-date.outputs.formattedTime }}
+
+    - name: push README to Dockerhub
+      uses: christian-korneck/update-container-description-action@v1
+      env:
+        DOCKER_USER: ${{ secrets.DOCKERHUB_USERNAME }}
+        DOCKER_PASS: ${{ secrets.DOCKERHUB_ACCESS_TOKEN }}
+      with:
+        destination_container_repo: zcchen/privoxy
+        provider: dockerhub
+        short_description: 'privoxy docker image based on Alphine Linux.'
+        readme_file: ./privoxy/README.md
