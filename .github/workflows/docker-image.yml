@@ -15,7 +15,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Build the Docker image
-      run: docker build ./privoxy --file Dockerfile --tag zcchen/privoxy:$(date +%s)
+      run: docker build ./privoxy --file ./privoxy/Dockerfile --tag zcchen/privoxy:$(date +%s)
     - name: Push to Docker Hub
         uses: docker/build-push-action@v1
         with:
