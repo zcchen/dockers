@@ -13,7 +13,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+
     - uses: actions/checkout@v2
+
+    - name: Get current date
+      uses: srfrnk/current-time@master
+      id: current-date
+      with:
+        format: YYYYMMDD
 
     - name: Build the Docker image
       run: docker build ./privoxy --file ./privoxy/Dockerfile --tag zcchen/privoxy:$(date +%s)
@@ -33,4 +40,4 @@ jobs:
         push: true
         tags: |
           zcchen/privoxy:latest
-          zcchen/privoxy:$(date +%s)
+          zcchen/privoxy:${{ steps.current-date.outputs.formattedTime }}
