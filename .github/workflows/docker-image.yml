@@ -14,13 +14,23 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+
     - name: Build the Docker image
       run: docker build ./privoxy --file ./privoxy/Dockerfile --tag zcchen/privoxy:$(date +%s)
+
+    #- name: Login to DockerHub
+      #uses: docker/login-action@v1
+      #with:
+        #username: ${{ secrets.DOCKERHUB_USERNAME }}
+        #password: ${{ secrets.DOCKERHUB_ACCESS_TOKEN }}
+
     - name: Push to Docker Hub
-      uses: docker/build-push-action@v1
+      uses: docker/build-push-action@v2
       with:
         context: ./privoxy
-        username: ${{ secrets.DOCKER_HUB_USERNAME }}
-        password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
-        repository: zcchen/privoxy
-        tag_with_ref: true
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_ACCESS_TOKEN }}
+        push: true
+        tags: |
+          zcchen/privoxy:latest
+          zcchen/privoxy:$(date +%s)
