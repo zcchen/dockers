@@ -1,6 +1,6 @@
 #!/bin/bash
 
-UPDATE_INTERVAL_SECONDS=$((3600 * 24))
+UPDATE_INTERVAL="${UPDATE_INTERVAL:-$((3600 * 24))}"
 FILELOCK="/etc/dnsmasq.d/dnsmasq-updated-timestamp.txt"
 UPDATE_SCRIPT_DIR="/scripts.d/"
 
@@ -87,7 +87,7 @@ exit_handler()
 _main_action()
 {
     get_last_update_time
-    if [ $(( $(date +%s) - ${UPDATE_INTERVAL_SECONDS} )) -gt ${last_update_time} ]; then
+    if [ $(( $(date +%s) - ${UPDATE_INTERVAL} )) -gt ${last_update_time} ]; then
         update_actions
         dnsmasq_stop
     fi
@@ -101,6 +101,7 @@ for sig in INT QUIT HUP TERM; do
     trap exit_handler "$sig"
 done
 
+echo ">>> Update interval time: <${UPDATE_INTERVAL}> seconds."
 _main_action
 loop_flag=1
 while [[ ${loop_flag} -ne 0 ]]; do

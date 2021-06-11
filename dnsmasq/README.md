@@ -12,6 +12,13 @@ docker run -d --restart unless-stopped --name dnsmasq \
     -p 53:53/udp zcchen/dnsmasq
 ```
 
+Available Environment Variables
+---------------------------------------------
+
+| Variable Name | Default Value | Meaning |
+| ------------- | ------------- | ------- |
+| `UPDATE_INTERVAL` | `3600 * 24` | The interval time to execute the update scripts |
+
 Github Repository
 ---------------------------------------------
 
