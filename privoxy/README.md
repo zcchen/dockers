@@ -29,4 +29,4 @@ Github Repository
 ---------------------------------------------
 
 For more details, please check the following github repository:
-[https://github.com/zcchen/dockers][https://github.com/zcchen/dockers]
+[https://github.com/zcchen/dockers](https://github.com/zcchen/dockers)
