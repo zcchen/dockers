@@ -4,6 +4,8 @@ UPDATE_INTERVAL="${UPDATE_INTERVAL:-$((3600 * 24))}"
 FILELOCK="/etc/dnsmasq.d/dnsmasq-updated-timestamp.txt"
 UPDATE_SCRIPT_DIR="/scripts.d/"
 
+loop_flag=0
+
 # do the update actions
 update_actions()
 {
@@ -31,23 +33,34 @@ dnsmasq_pid=0
 # start the `dnsmasq` process
 dnsmasq_start()
 {
-    if [ "${dnsmasq_pid}" -eq 0 ]; then
+    if [[ "${dnsmasq_pid}" -eq 0 ]]; then
         echo ">>> starting dnsmasq..."
         dnsmasq --keep-in-foreground &
         dnsmasq_pid=$!
-        echo "--- dnsmasq started, pid is <${dnsmasq_pid}>"
+        echo "--- wait 10 seconds to ensure the dnsmasq is started."
+        for i in $(seq 10) ; do
+            if ! $(kill -0 "${dnsmasq_pid}" 2>/dev/null); then
+                dnsmasq_pid=0
+                break
+            fi
+            sleep 1
+        done
+        if [[ "${dnsmasq_pid}" -ne 0 ]]; then
+            echo "--- dnsmasq started, pid is <${dnsmasq_pid}>"
+            loop_flag=1
+        fi
     fi
 }
 
 # stop the `dnsmasq` process
 dnsmasq_stop()
 {
-    if [[ ${dnsmasq_pid} -ne 0 ]]; then
+    if [[ "${dnsmasq_pid}" -ne 0 ]]; then
         echo ">>> killing dnsmasq <${dnsmasq_pid}>."
         kill ${dnsmasq_pid}
     fi
     echo ">>> Waiting dnsmasq <${dnsmasq_pid}> to stop."
-    while [[ ${dnsmasq_pid} -ne 0 ]]; do
+    while [[ "${dnsmasq_pid}" -ne 0 ]]; do
         if ! $(kill -0 "${dnsmasq_pid}" 2>/dev/null); then
             dnsmasq_pid=0
         fi
@@ -73,7 +86,6 @@ set_last_update_time()
 }
 
 
-loop_flag=0
 # Handle the exit related signals
 exit_handler()
 {
@@ -97,13 +109,12 @@ _main_action()
 
 # ---------- main function ------------
 # trap the stop signals
-for sig in INT QUIT HUP TERM; do
+for sig in INT QUIT HUP TERM STOP; do
     trap exit_handler "$sig"
 done
 
 echo ">>> Update interval time: <${UPDATE_INTERVAL}> seconds."
 _main_action
-loop_flag=1
 while [[ ${loop_flag} -ne 0 ]]; do
     _main_action
     sleep 1
