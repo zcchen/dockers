@@ -1,7 +1,7 @@
 FROM alpine
 
 RUN apk --no-cache add \
-        git bash wget dnsmasq
+        git bash wget dnsmasq-dnssec
 
 ADD ./entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
