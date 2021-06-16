@@ -17,9 +17,8 @@ Available Environment Variables
 | Variable Name | Default Value | Meaning |
 | ------------- | ------------- | ------- |
 | `BIND_ADDRESS` | `0.0.0.0` | available addresses for frps |
-| `BIND_PORT_TCP` | `7000`  | the frps port to make TCP / KCP hole |
+| `BIND_PORT_TCP` | `7000`  | the frps port to make TCP / KCP / HTTP / HTTPS hole |
 | `BIND_PORT_UDP` |         | the frps port to make UDP hole |
-| `VHOST_HTTP_PORT` |       | the frps port for HTTP vhost port, able to be same as `BIND_PORT_TCP` |
 
 | Variable Name | Default Value | Meaning |
 | ------------- | ------------- | ------- |

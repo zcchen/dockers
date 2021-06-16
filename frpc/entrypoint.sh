@@ -3,8 +3,7 @@
 set -eo pipefail
 shopt -s nullglob
 
-#config_filename=/etc/frp/frpc_docker.ini
-config_filename=/tmp/frpc_docker.ini
+config_filename=/etc/frp/frpc_docker.ini
 
 # usage: file_env VAR [DEFAULT]
 #    ie: file_env 'XYZ_DB_PASSWORD' 'example'
@@ -27,8 +26,6 @@ file_env() {
     unset "$fileVar"
 }
 
-file_env "DASHBOARD_USER" "admin"
-file_env "DASHBOARD_PASSWORD" "admin"
 file_env "AUTH_TOKEN"
 
 # --------------- the ENV configs -----------------------

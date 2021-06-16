@@ -3,6 +3,8 @@
 set -eo pipefail
 shopt -s nullglob
 
+config_filename=/etc/frp/frps_docker.ini
+
 # usage: file_env VAR [DEFAULT]
 #    ie: file_env 'XYZ_DB_PASSWORD' 'example'
 # (will allow for "$XYZ_DB_PASSWORD_FILE" to fill in the value of
@@ -33,7 +35,6 @@ BIND_ADDRESS=${BIND_ADDRESS:-0.0.0.0}
 
 BIND_PORT_TCP=${BIND_PORT_TCP:-7000}
 BIND_PORT_UDP=${BIND_PORT_UDP:-}
-VHOST_HTTP_PORT=${VHOST_HTTP_PORT:-}
 ALLOW_PORTS=${ALLOW_PORTS:-}
 
 DASHBOARD_ADDRESS=${DASHBOARD_ADDRESS:-0.0.0.0}
@@ -46,25 +47,19 @@ AUTH_TOKEN=${AUTH_TOKEN:-}
 APPEND_CONFIG_FILES=${APPEND_CONFIG_FILES:-}
 # -------------------------------------------------------
 
-config_filename=/etc/frp/frps_docker.ini
-
 cat > ${config_filename} << EOF
 [common]
 bind_addr = ${BIND_ADDRESS}
 bind_port = ${BIND_PORT_TCP}
 kcp_bind_port = ${BIND_PORT_TCP}
+vhost_http_port = ${BIND_PORT_TCP}
+vhost_https_port = ${BIND_PORT_TCP}
 
 EOF
 
 if [[ -n "${BIND_PORT_UDP}" ]]; then
 cat >> ${config_filename} << EOF
 bind_udp_port = ${BIND_PORT_UDP}
-EOF
-fi
-
-if [[ -n "${VHOST_HTTP_PORT}" ]]; then
-cat >> ${config_filename} << EOF
-vhost_http_port = ${VHOST_HTTP_PORT}
 EOF
 fi
 
