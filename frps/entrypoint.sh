@@ -107,4 +107,4 @@ done
 echo "------------ configs ---------------"
 cat ${config_filename}
 echo "------------------------------------"
-#/usr/bin/frps -c ${config_filename} $@
+/usr/bin/frps -c ${config_filename} $@

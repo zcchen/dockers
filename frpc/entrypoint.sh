@@ -34,6 +34,7 @@ file_env "AUTH_TOKEN"
 # --------------- the ENV configs -----------------------
 SERVER_ADDR=${SERVER_ADDR:-0.0.0.0}
 SERVER_PORT=${SERVER_PORT:-7000}
+PROTOCOL=${PROTOCOL:-tcp}
 
 AUTH_TOKEN=${AUTH_TOKEN:-}
 
@@ -44,8 +45,13 @@ cat > ${config_filename} << EOF
 [common]
 server_addr = ${SERVER_ADDR}
 server_port = ${SERVER_PORT}
+protocol = ${PROTOCOL}
+
+use_encryption = true
+use_compression = true
 
 EOF
+
 
 if [[ -n "${AUTH_TOKEN}" ]]; then
 cat >> ${config_filename} << EOF
@@ -74,7 +80,7 @@ for f in ${APPEND_CONFIG_FILES//,/ }; do
     fi
 done
 
-echo "------------- outputs ------------"
+echo "------------- configs ------------"
 cat /${config_filename}
 echo "----------------------------------"
-#/usr/bin/frpc -c ${config_filename} $@
+/usr/bin/frpc -c ${config_filename} $@
