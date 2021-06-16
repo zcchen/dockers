@@ -3,6 +3,9 @@
 set -eo pipefail
 shopt -s nullglob
 
+#config_filename=/etc/frp/frpc_docker.ini
+config_filename=/tmp/frpc_docker.ini
+
 # usage: file_env VAR [DEFAULT]
 #    ie: file_env 'XYZ_DB_PASSWORD' 'example'
 # (will allow for "$XYZ_DB_PASSWORD_FILE" to fill in the value of
@@ -29,36 +32,24 @@ file_env "DASHBOARD_PASSWORD" "admin"
 file_env "AUTH_TOKEN"
 
 # --------------- the ENV configs -----------------------
-BIND_ADDRESS=${BIND_ADDRESS:-0.0.0.0}
-
-BIND_PORT_TCP=${BIND_PORT_TCP:-7000}
-BIND_PORT_UDP=${BIND_PORT_UDP:-}
-VHOST_HTTP_PORT=${VHOST_HTTP_PORT:-}
-ALLOW_PORTS=${ALLOW_PORTS:-}
-
-DASHBOARD_ADDRESS=${DASHBOARD_ADDRESS:-0.0.0.0}
-DASHBOARD_PORT=${DASHBOARD_PORT:-}
-DASHBOARD_USER=${DASHBOARD_USER:-admin}
-DASHBOARD_PASSWORD=${DASHBOARD_PASSWORD:-admin}
+SERVER_ADDR=${SERVER_ADDR:-0.0.0.0}
+SERVER_PORT=${SERVER_PORT:-7000}
 
 AUTH_TOKEN=${AUTH_TOKEN:-}
 
 APPEND_CONFIG_FILES=${APPEND_CONFIG_FILES:-}
 # -------------------------------------------------------
 
-config_filename=/etc/frp/frps_docker.ini
-
 cat > ${config_filename} << EOF
 [common]
-bind_addr = ${BIND_ADDRESS}
-bind_port = ${BIND_PORT_TCP}
-kcp_bind_port = ${BIND_PORT_TCP}
+server_addr = ${SERVER_ADDR}
+server_port = ${SERVER_PORT}
 
 EOF
 
-if [[ -n "${BIND_PORT_UDP}" ]]; then
+if [[ -n "${AUTH_TOKEN}" ]]; then
 cat >> ${config_filename} << EOF
-bind_udp_port = ${BIND_PORT_UDP}
+token = ${AUTH_TOKEN}
 EOF
 fi
 
@@ -74,27 +65,6 @@ allow_ports = ${ALLOW_PORTS}
 EOF
 fi
 
-if [[ -n "${DASHBOARD_PORT}" ]]; then
-cat >> ${config_filename} << EOF
-dashboard_addr = ${DASHBOARD_ADDRESS}
-dashboard_port = ${DASHBOARD_PORT}
-enable_prometheus = true
-dashboard_user = ${DASHBOARD_USER}
-EOF
-if [[ -n "${DASHBOARD_PASSWORD}" ]]; then
-cat >> ${config_filename} << EOF
-dashboard_pwd = ${DASHBOARD_PASSWORD}
-EOF
-fi
-fi
-
-if [[ -n "${AUTH_TOKEN}" ]]; then
-cat >> ${config_filename} << EOF
-authentication_method = token
-token = ${AUTH_TOKEN}
-EOF
-fi
-
 for f in ${APPEND_CONFIG_FILES//,/ }; do
     if [[ -f "${f}" ]]; then
         echo "# Appending config file <$f> ..." >> ${config_filename}
@@ -104,7 +74,7 @@ for f in ${APPEND_CONFIG_FILES//,/ }; do
     fi
 done
 
-echo "------------ configs ---------------"
-cat ${config_filename}
-echo "------------------------------------"
-#/usr/bin/frps -c ${config_filename} $@
+echo "------------- outputs ------------"
+cat /${config_filename}
+echo "----------------------------------"
+#/usr/bin/frpc -c ${config_filename} $@

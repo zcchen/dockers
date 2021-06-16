@@ -1,8 +1,8 @@
-zcchen/frps
+zcchen/frpc
 =============================================
 
-A `frps` docker image based on Alpine Linux.
-This image generates `/etc/frp/frps_docker.ini` with environment variables setup.
+A `frpc` docker image based on Alpine Linux.
+This image generates `/etc/frp/frpc_docker.ini` with environment variables setup.
 
 Example as below:
 
@@ -26,9 +26,9 @@ Available Environment Variables
 | `DASHBOARD_ADDRESS` | `0.0.0.0` | available addresses for frps dashboard |
 | `DASHBOARD_PORT` |         | the frps dashboard port |
 | `DASHBOARD_USER` | `admin` | the frps dashboard user |
-| `DASHBOARD_USER_FILE` |    | the secret file for frps dashboard user |
+| `DASHBOARD_USER_FILE` | `admin` | the secret file for frps dashboard user |
 | `DASHBOARD_PASSWORD` | `admin` | the frps dashboard password |
-| `DASHBOARD_PASSWORD_FILE` |    | the secret file for frps dashboard password |
+| `DASHBOARD_PASSWORD_FILE` | `admin` | the secret file for frps dashboard password |
 
 | Variable Name | Default Value | Meaning |
 | ------------- | ------------- | ------- |
@@ -37,7 +37,7 @@ Available Environment Variables
 
 | Variable Name | Default Value | Meaning |
 | ------------- | ------------- | ------- |
-| `APPEND_CONFIG_FILES`  |       | the config files which appending for this template, separated by comma `,` or space chars ` `, e.g.: `a.ini,b.ini`|
+| `APPEND_CONFIG_FILE`  |       | the config file which appending for this template. |
 
 Github Repository
 ---------------------------------------------
