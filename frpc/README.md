@@ -17,6 +17,7 @@ Available Environment Variables
 
 | Variable Name | Default Value | Meaning |
 | ------------- | ------------- | ------- |
+| `SHOW_CONFIG` | `false` | show the generated config before execute `frpc` |
 | `SERVER_ADDRESS` | `0.0.0.0` | the frps server addresses |
 | `SERVER_PORT` | `7000` | the frps server port |
 | `PROTOCOL` | `tcp` | the connection protocol between frpc and frps |

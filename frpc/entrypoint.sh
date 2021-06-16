@@ -29,6 +29,7 @@ file_env() {
 file_env "AUTH_TOKEN"
 
 # --------------- the ENV configs -----------------------
+SHOW_CONFIG=${SHOW_CONFIG:-false}
 SERVER_ADDR=${SERVER_ADDR:-0.0.0.0}
 SERVER_PORT=${SERVER_PORT:-7000}
 PROTOCOL=${PROTOCOL:-tcp}
@@ -77,7 +78,9 @@ for f in ${APPEND_CONFIG_FILES//,/ }; do
     fi
 done
 
-echo "------------- configs ------------"
-cat /${config_filename}
-echo "----------------------------------"
+if ${SHOW_CONFIG}; then
+    echo "------------- configs ------------"
+    cat /${config_filename}
+    echo "----------------------------------"
+fi
 /usr/bin/frpc -c ${config_filename} $@

@@ -31,6 +31,8 @@ file_env "DASHBOARD_PASSWORD" "admin"
 file_env "AUTH_TOKEN"
 
 # --------------- the ENV configs -----------------------
+SHOW_CONFIG=${SHOW_CONFIG:-false}
+
 BIND_ADDRESS=${BIND_ADDRESS:-0.0.0.0}
 
 BIND_PORT_TCP=${BIND_PORT_TCP:-7000}
@@ -99,7 +101,9 @@ for f in ${APPEND_CONFIG_FILES//,/ }; do
     fi
 done
 
-echo "------------ configs ---------------"
-cat ${config_filename}
-echo "------------------------------------"
+if ${SHOW_CONFIG}; then
+    echo "------------- configs ------------"
+    cat /${config_filename}
+    echo "----------------------------------"
+fi
 /usr/bin/frps -c ${config_filename} $@

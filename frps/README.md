@@ -13,6 +13,9 @@ docker run -d --restart unless-stopped --name frps \
 
 Available Environment Variables
 ---------------------------------------------
+| Variable Name | Default Value | Meaning |
+| ------------- | ------------- | ------- |
+| `SHOW_CONFIG` | `false` | show the generated config before execute `frps` |
 
 | Variable Name | Default Value | Meaning |
 | ------------- | ------------- | ------- |
