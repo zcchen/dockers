@@ -59,4 +59,4 @@ cat << EOF >> /etc/privoxy/config
 ${EXTRA_CONFIG_FILE}
 EOF
 
-privoxy $@
+exec privoxy $@

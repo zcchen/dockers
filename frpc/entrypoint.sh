@@ -83,4 +83,4 @@ if ${SHOW_CONFIG}; then
     cat /${config_filename}
     echo "----------------------------------"
 fi
-/usr/bin/frpc -c ${config_filename} $@
+exec /usr/bin/frpc -c ${config_filename} $@

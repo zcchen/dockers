@@ -106,4 +106,4 @@ if ${SHOW_CONFIG}; then
     cat /${config_filename}
     echo "----------------------------------"
 fi
-/usr/bin/frps -c ${config_filename} $@
+exec /usr/bin/frps -c ${config_filename} $@
