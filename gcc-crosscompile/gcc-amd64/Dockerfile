@@ -8,8 +8,11 @@ RUN if [ -n "${APT_MIRROR}" ]; then \
   fi
 
 RUN apt update && \
-    apt install -y gcc g++ build-essential cmake make && \
+    apt install -y gcc g++ build-essential cmake make ; \
+    apt install -f && \
     apt clean
 
-RUN mkdir -p /compile
-WORKDIR /compile
+RUN mkdir -p /work
+WORKDIR /work
+
+ARG COMPILER_PREFIX
