@@ -1,0 +1,17 @@
+ARG DEBIAN_VERSION=stable
+FROM gcc-amd64:${DEBIAN_VERSION} as compiling
+
+ADD program /work/program
+
+RUN cd /work/program && \
+    cmake -B build && \
+    cmake --build build
+
+
+FROM --platform=amd64 debian:${DEBIAN_VERSION}
+COPY --from=compiling /work/program/build/src/hello /hello
+COPY docker/command.sh /
+
+CMD ["/bin/bash", "/command.sh"]
+
+# vim: ft=dockerfile
