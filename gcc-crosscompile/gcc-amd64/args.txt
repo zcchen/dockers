@@ -1,0 +1,1 @@
+APT_MIRROR=http://mirrors.163.com
