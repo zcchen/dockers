@@ -1,6 +1,6 @@
 FROM alpine
 
-ENV FRP_VERSION 0.37.0
+ENV FRP_VERSION 0.38.0
 
 RUN cd /root \
     &&  apk add --no-cache bash \
