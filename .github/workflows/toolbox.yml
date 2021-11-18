@@ -32,14 +32,15 @@ jobs:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_ACCESS_TOKEN }}
 
-    #- name: Push to Docker Hub
-      #uses: docker/build-push-action@v2
-      #with:
-        #context: ./toolbox
-        #username: ${{ secrets.DOCKERHUB_USERNAME }}
-        #password: ${{ secrets.DOCKERHUB_ACCESS_TOKEN }}
-        #push: true
-        #tags: |
+    - name: Push to Docker Hub
+      uses: docker/build-push-action@v2
+      with:
+        context: ./toolbox
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_ACCESS_TOKEN }}
+        push: true
+        tags: |
+          ${{ secrets.DOCKERHUB_USERNAME }}/toolbox:latest
           #${{ secrets.DOCKERHUB_USERNAME }}/toolbox:${{ steps.current-date.outputs.formattedTime }}
 
     - name: Docker Hub Description
