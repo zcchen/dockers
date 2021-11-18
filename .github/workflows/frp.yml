@@ -3,8 +3,14 @@ name: frpc + frps Docker Image CI
 on:
   push:
     branches: [ master ]
+    paths:
+      - frpc/**
+      - frps/**
   pull_request:
     branches: [ master ]
+    paths:
+      - frpc/**
+      - frps/**
 
 jobs:
 

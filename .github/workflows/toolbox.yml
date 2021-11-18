@@ -3,8 +3,12 @@ name: toolbox Docker Image CI
 on:
   push:
     branches: [ master ]
+    paths:
+      - toolbox/**
   pull_request:
     branches: [ master ]
+    paths:
+      - toolbox/**
 
 jobs:
 

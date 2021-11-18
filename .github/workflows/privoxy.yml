@@ -3,8 +3,12 @@ name: privoxy Docker Image CI
 on:
   push:
     branches: [ master ]
+    paths:
+      - privoxy/**
   pull_request:
     branches: [ master ]
+    paths:
+      - privoxy/**
 
 jobs:
 

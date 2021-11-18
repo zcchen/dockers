@@ -3,8 +3,12 @@ name: dnsmasq Docker Image CI
 on:
   push:
     branches: [ master ]
+    paths:
+      - dnsmasq/**
   pull_request:
     branches: [ master ]
+    paths:
+      - dnsmasq/**
 
 jobs:
 
