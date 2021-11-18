@@ -5,10 +5,12 @@ on:
     branches: [ master ]
     paths:
       - toolbox/**
+      - .github/workflows/toolbox.yml
   pull_request:
     branches: [ master ]
     paths:
       - toolbox/**
+      - .github/workflows/toolbox.yml
 
 jobs:
 

@@ -6,11 +6,13 @@ on:
     paths:
       - frpc/**
       - frps/**
+      - .github/workflows/frp.yml
   pull_request:
     branches: [ master ]
     paths:
       - frpc/**
       - frps/**
+      - .github/workflows/frp.yml
 
 jobs:
 

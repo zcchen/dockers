@@ -5,10 +5,12 @@ on:
     branches: [ master ]
     paths:
       - dnsmasq/**
+      - .github/workflows/dnsmasq.yml
   pull_request:
     branches: [ master ]
     paths:
       - dnsmasq/**
+      - .github/workflows/dnsmasq.yml
 
 jobs:
 

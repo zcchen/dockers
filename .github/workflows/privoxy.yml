@@ -5,10 +5,12 @@ on:
     branches: [ master ]
     paths:
       - privoxy/**
+      - .github/workflows/privoxy.yml
   pull_request:
     branches: [ master ]
     paths:
       - privoxy/**
+      - .github/workflows/privoxy.yml
 
 jobs:
 
